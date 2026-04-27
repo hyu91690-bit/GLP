@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Life Health Care</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Arial", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: #f4f4f4;
+      color: #222;
+    }
+    .hidden { display: none !important; }
+    .app { min-height: 100vh; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #ffffff;
+      border-bottom: 3px solid #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      font-size: 24px;
+    }
+
+    .brand-badge {
+      width: 74px;
+      height: 74px;
+      border-radius: 16px;
+      border: 3px solid #111;
+      overflow: hidden;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      padding: 4px;
+    }
+
+    .brand-badge img,
+    .hero-illustration img,
+    .lock-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #efefef;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .small-btn, .primary-btn, .feature-btn, .save-btn, .danger-btn, .link-btn {
+      border: 3px solid #111;
+      border-radius: 16px;
+      cursor: pointer;
+      font-weight: 800;
+      transition: 0.18s;
+      text-decoration: none;
+      color: #111;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .small-btn, .danger-btn {
+      background: #fff;
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    .small-btn:hover, .danger-btn:hover, .primary-btn:hover, .feature-btn:hover, .save-btn:hover, .link-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 rgba(0,0,0,0.08);
+    }
+
+    .danger-btn { background: #ffe0e0; }
+
+    .hero {
+      max-width: 1200px;
+      margin: 24px auto 10px;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-left, .hero-right {
+      background: #fff;
+      border: 4px solid #111;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 10px 0 rgba(0,0,0,0.08);
+    }
+
+    .hero-left h1 {
+      margin: 0 0 12px;
+      font-size: 42px;
+      line-height: 1.05;
+    }
+
+    .hero-left p {
+      margin: 0 0 18px;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .primary-btn {
+      background: #ffd966;
+      padding: 14px 20px;
+      font-size: 17px;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #fff 0%, #faf6ff 100%);
+    }
+
+    .hero-illustration {
+      width: 100%;
+      max-width: 460px;
+      min-height: 360px;
+      border: 4px solid #111;
+      border-radius: 24px;
+      background: #e9e9e9;
+      overflow: hidden;
+      padding: 8px;
+    }
+
+    .hero-right h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .section-wrap {
+      max-width: 1200px;
+      margin: 18px auto 40px;
+      padding: 0 16px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 900;
+      margin: 24px 0 14px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .feature-btn {
+      background: #fff;
+      min-height: 145px;
+      padding: 18px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .feature-btn .emoji {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .feature-btn .title {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .feature-btn .desc {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.45;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: 0 auto 40px;
+      padding: 0 16px 24px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 18px;
+    }
+
+    .sidebar, .content-panel {
+      background: #fff;
+      border: 4px solid #111;
+      border-radius: 26px;
+      box-shadow: 0 10px 0 rgba(0,0,0,0.08);
+    }
+
+    .sidebar {
+      padding: 18px;
+      align-self: start;
+      position: sticky;
+      top: 98px;
+    }
+
+    .profile-card {
+      border: 3px solid #111;
+      border-radius: 20px;
+      padding: 14px;
+      background: #fdfdfd;
+      margin-bottom: 16px;
+    }
+
+    .profile-card h3 {
+      margin: 0 0 8px;
+      font-size: 22px;
+    }
+
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px dashed #ccc;
+      font-size: 14px;
+    }
+
+    .profile-row:last-child { border-bottom: none; }
+
+    .quick-menu {
+      display: grid;
+      gap: 10px;
+    }
+
+    .quick-menu button {
+      border: 3px solid #111;
+      background: #fafafa;
+      border-radius: 14px;
+      padding: 12px 14px;
+      text-align: left;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .quick-menu button.active { background: #ffd966; }
+
+    .content-panel { padding: 24px; }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .page.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .page p.sub {
+      margin: 0 0 20px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      border: 3px solid #111;
+      border-radius: 22px;
+      padding: 18px;
+      background: #fcfcfc;
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      margin: 10px 0 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 2px solid #111;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 15px;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .save-btn {
+      margin-top: 14px;
+      background: #c8f2ff;
+      padding: 12px 18px;
+      font-size: 15px;
+    }
+
+    .mini-note, .status {
+      font-size: 14px;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .status.success { color: #0d7c35; font-weight: 800; }
+    .status.error { color: #b51414; font-weight: 800; }
+
+    .diet-box {
+      background: #fff7d9;
+      border: 3px dashed #111;
+      border-radius: 18px;
+      padding: 16px;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .goal-bar-wrap {
+      margin-top: 12px;
+      border: 3px solid #111;
+      border-radius: 999px;
+      overflow: hidden;
+      height: 28px;
+      background: #eee;
+    }
+
+    .goal-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #83e377, #ffd966);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      transition: width 0.25s ease;
+    }
+
+    .calendar-list, .checklist-items, .weight-history, .mood-history {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .entry-item {
+      border: 2px solid #111;
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .entry-item strong { font-size: 15px; }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .video-card {
+      border: 3px solid #111;
+      border-radius: 18px;
+      padding: 14px;
+      background: #f8f8ff;
+    }
+
+    .video-frame {
+      width: 100%;
+      min-height: 140px;
+      border: 2px solid #111;
+      border-radius: 14px;
+      background: #ddd;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .link-btn {
+      background: #fff;
+      padding: 12px 18px;
+      font-size: 17px;
+      width: 100%;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      border: 2px solid #111;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: #111;
+    }
+
+    .mood-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .mood-option {
+      border: 3px solid #111;
+      border-radius: 14px;
+      background: #fff;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 22px;
+    }
+
+    .mood-option.selected { background: #ffd4ea; }
+
+    .summary-box {
+      margin-top: 16px;
+      border: 3px dashed #111;
+      border-radius: 18px;
+      padding: 16px;
+      background: #f2fff4;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .notice-box {
+      margin-top: 12px;
+      padding: 14px;
+      border: 3px solid #111;
+      border-radius: 18px;
+      background: #fffdf3;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 12px;
+      border: 2px solid #111;
+      border-radius: 999px;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      margin: 4px 6px 0 0;
+    }
+
+    .lock-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(248,248,248,0.96);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 18px;
+      overflow-y: auto;
+    }
+
+    .lock-card {
+      width: 100%;
+      max-width: 860px;
+      max-height: calc(100vh - 36px);
+      background: #fff;
+      border: 5px solid #111;
+      border-radius: 30px;
+      box-shadow: 0 14px 0 rgba(0,0,0,0.08);
+      overflow-y: auto;
+      overflow-x: hidden;
+      margin: auto 0;
+    }
+
+    .lock-header {
+      background: #fff2b0;
+      border-bottom: 4px solid #111;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .lock-thumb {
+      width: 200px;
+      min-width: 200px;
+      height: 200px;
+      border: 4px solid #111;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #eee;
+      padding: 8px;
+    }
+
+    .lock-header h2 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .lock-header p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .lock-body { padding: 22px; }
+
+    .lock-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #666;
+      font-size: 13px;
+      padding: 10px 16px 26px;
+    }
+
+    @media (max-width: 980px) {
+      .hero, .dashboard { grid-template-columns: 1fr; }
+      .feature-grid, .card-grid, .video-grid, .lock-grid { grid-template-columns: 1fr 1fr; }
+      .sidebar { position: static; }
+    }
+
+    @media (max-width: 700px) {
+      .hero-left h1 { font-size: 32px; }
+      .feature-grid, .card-grid, .video-grid, .lock-grid, .row { grid-template-columns: 1fr; }
+      .topbar { align-items: flex-start; }
+      .brand { font-size: 20px; }
+      .lock-header { flex-direction: column; align-items: flex-start; }
+      .lock-thumb { width: 100%; min-width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="lock-screen" id="signupGate">
+    <div class="lock-card">
+      <div class="lock-header">
+        <div class="lock-thumb">
+          <img src="./GLP.png" alt="건강 앱 그림" />
+        </div>
+        <div>
+          <h2>먼저 회원정보 설정하기</h2>
+          <p>
+            이 웹페이지는 <strong>처음 들어오면 회원정보를 반드시 입력</strong>하도록 만들어져 있어요.<br>
+            아이디, 비밀번호, 나이, 몸무게, 키 등을 입력하면 건강 관리 기능을 사용할 수 있습니다.
+          </p>
+        </div>
+      </div>
+      <div class="lock-body">
+        <div class="lock-grid">
+          <div>
+            <label>아이디</label>
+            <input type="text" id="signupId" placeholder="아이디 입력" />
+          </div>
+          <div>
+            <label>비밀번호</label>
+            <input type="password" id="signupPw" placeholder="비밀번호 입력" />
+          </div>
+          <div>
+            <label>이름/닉네임</label>
+            <input type="text" id="signupName" placeholder="이름 또는 닉네임" />
+          </div>
+          <div>
+            <label>나이</label>
+            <input type="number" id="signupAge" placeholder="예: 17" />
+          </div>
+          <div>
+            <label>성별</label>
+            <select id="signupGender">
+              <option value="">선택</option>
+              <option value="male">남자</option>
+              <option value="female">여자</option>
+            </select>
+          </div>
+          <div>
+            <label>키(cm)</label>
+            <input type="number" id="signupHeight" placeholder="예: 165" />
+          </div>
+          <div>
+            <label>현재 몸무게(kg)</label>
+            <input type="number" id="signupWeight" placeholder="예: 52" />
+          </div>
+          <div>
+            <label>목표 몸무게(kg)</label>
+            <input type="number" id="signupGoalWeight" placeholder="예: 48" />
+          </div>
+          <div>
+            <label>기상 목표 시간</label>
+            <input type="time" id="signupWakeTarget" />
+          </div>
+          <div>
+            <label>수면 목표 시간</label>
+            <input type="time" id="signupSleepTarget" />
+          </div>
+        </div>
+        <button class="primary-btn" style="margin-top:18px; width:100%;" onclick="registerUser()">회원정보 저장하고 시작하기</button>
+        <div class="status" id="signupStatus"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app" id="appRoot">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-badge">
+          <img src="./GLP.png" alt="앱 대표 이미지" />
+        </div>
+        <span>HAPPY LIFE HEALTH</span>
+      </div>
+      <div class="top-actions">
+        <button class="small-btn" onclick="showPage('home')">홈</button>
+        <button class="small-btn" onclick="showPage('profile')">회원정보</button>
+        <button class="small-btn" onclick="requestNotificationPermission('globalStatus')">🔔 알림 허용</button>
+        <button class="danger-btn" onclick="resetAllData()">전체 초기화</button>
+      </div>
+    </div>
+
+    <div class="section-wrap" style="margin-top:12px; margin-bottom:0;">
+      <div class="status" id="globalStatus"></div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-left">
+        <h1>하루 건강을<br/>따로따로 관리하는 웹페이지</h1>
+        <p>
+          회원정보 설정, 균형 식단, BMI/비만도 체크, 몸무게 목표 관리, 운동 링크, 체크리스트,
+          행복도 기록, 수면/기상 시간, 약 알림, 물 마시기 알림, 호흡법 링크까지 각각 <strong>독립된 버튼</strong>으로 들어가도록 구성했어요.
+        </p>
+        <button class="primary-btn" onclick="showPage('profile')">회원정보 수정하러 가기</button>
+      </div>
+      <div class="hero-right">
+        <div class="hero-illustration">
+          <img src="./GLP.png" alt="체크리스트, 행복, 운동, 식단 그림" />
+        </div>
+        <h2>보낸 그림이 잘 보이도록 수정한 버전</h2>
+        <div>이미지를 잘리지 않게 contain 방식으로 바꿔둠</div>
+      </div>
+    </div>
+
+    <div class="section-wrap">
+      <div class="section-title">기능 바로가기</div>
+      <div class="feature-grid">
+        <button class="feature-btn" onclick="showPage('profile')">
+          <div>
+            <div class="emoji">👤</div>
+            <div class="title">회원정보 설정</div>
+            <div class="desc">아이디, 비밀번호, 나이, 키, 몸무게 입력</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('diet')">
+          <div>
+            <div class="emoji">🍽️</div>
+            <div class="title">균형 식단</div>
+            <div class="desc">오늘의 식단과 식단 메모를 따로 관리</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('goal')">
+          <div>
+            <div class="emoji">⚖️</div>
+            <div class="title">BMI / 비만도 체크</div>
+            <div class="desc">BMI와 비만도 확인</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('calendarWeight')">
+          <div>
+            <div class="emoji">📅</div>
+            <div class="title">몸무게 캘린더</div>
+            <div class="desc">날짜별 몸무게 기록 저장</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('exercise')">
+          <div>
+            <div class="emoji">🏃</div>
+            <div class="title">운동 링크</div>
+            <div class="desc">하체, 상체, 코어, 필라테스, 새천년체조</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('checklist')">
+          <div>
+            <div class="emoji">✅</div>
+            <div class="title">운동 체크리스트</div>
+            <div class="desc">물 한 컵, 운동 30분 + 직접 추가하는 할 일</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('mood')">
+          <div>
+            <div class="emoji">😊</div>
+            <div class="title">행복도 기록</div>
+            <div class="desc">하루 행복 수치와 이모티콘 저장</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('sleep')">
+          <div>
+            <div class="emoji">😴</div>
+            <div class="title">수면/기상 시간</div>
+            <div class="desc">어제 수면시간, 오늘 기상시간 기록</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('positiveAlarm')">
+          <div>
+            <div class="emoji">💌</div>
+            <div class="title">긍정 멘트 알림</div>
+            <div class="desc">원하는 시간 설정 + 알림 허용</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('medicineAlarm')">
+          <div>
+            <div class="emoji">💊</div>
+            <div class="title">약 복용 알림</div>
+            <div class="desc">복용 시간 설정 + 끄기 기능</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('waterAlarm')">
+          <div>
+            <div class="emoji">💧</div>
+            <div class="title">물 마시기 알림</div>
+            <div class="desc">몇 분 주기로 울릴지 직접 설정</div>
+          </div>
+        </button>
+
+        <button class="feature-btn" onclick="showPage('breathing')">
+          <div>
+            <div class="emoji">🌿</div>
+            <div class="title">호흡법/명상 링크</div>
+            <div class="desc">478호흡법, 명상 영상 링크</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="dashboard">
+      <div class="sidebar">
+        <div class="profile-card">
+          <h3 id="sideUserName">사용자</h3>
+          <div class="profile-row"><span>아이디</span><strong id="sideUserId">-</strong></div>
+          <div class="profile-row"><span>나이</span><strong id="sideUserAge">-</strong></div>
+          <div class="profile-row"><span>키</span><strong id="sideUserHeight">-</strong></div>
+          <div class="profile-row"><span>현재 몸무게</span><strong id="sideUserWeight">-</strong></div>
+                  </div>
+        <div class="quick-menu">
+          <button data-page="home" onclick="showPage('home')">🏠 홈</button>
+          <button data-page="profile" onclick="showPage('profile')">👤 회원정보</button>
+          <button data-page="diet" onclick="showPage('diet')">🍽️ 균형 식단</button>
+          <button data-page="goal" onclick="showPage('goal')">⚖️ BMI / 비만도</button>
+          <button data-page="calendarWeight" onclick="showPage('calendarWeight')">📅 몸무게 캘린더</button>
+          <button data-page="exercise" onclick="showPage('exercise')">🏃 운동 링크</button>
+          <button data-page="checklist" onclick="showPage('checklist')">✅ 체크리스트</button>
+          <button data-page="mood" onclick="showPage('mood')">😊 행복도 기록</button>
+          <button data-page="sleep" onclick="showPage('sleep')">😴 수면/기상</button>
+          <button data-page="positiveAlarm" onclick="showPage('positiveAlarm')">💌 긍정 알림</button>
+          <button data-page="medicineAlarm" onclick="showPage('medicineAlarm')">💊 약 알림</button>
+          <button data-page="waterAlarm" onclick="showPage('waterAlarm')">💧 물 알림</button>
+          <button data-page="breathing" onclick="showPage('breathing')">🌿 호흡/명상</button>
+        </div>
+      </div>
+
+      <div class="content-panel">
+        <section class="page active" id="page-home">
+          <h2>홈 대시보드</h2>
+          <p class="sub">오늘의 건강 관리 상황을 한 번에 보는 화면입니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>오늘의 한 줄</h3>
+              <div id="todayMessage" class="summary-box">오늘도 천천히, 하지만 확실하게 건강을 챙겨보자!</div>
+              <button class="save-btn" onclick="changePositiveMessage()">문장 바꾸기</button>
+            </div>
+            <div class="card">
+              <h3>오늘의 식단 요약</h3>
+              <div class="diet-box">
+                아침: 현미밥 + 달걀 + 과일<br>
+                점심: 밥 + 단백질 반찬 + 채소 반찬 골고루<br>
+                저녁: 두부 또는 닭가슴살 + 샐러드 + 국물 적당히<br>
+                간식: 견과류, 요거트, 바나나 추천
+              </div>
+            </div>
+            <div class="card">
+              <h3>BMI / 비만도 요약</h3>
+              <div id="goalSummaryText">회원정보를 입력하면 계산됩니다.</div>
+              <div class="goal-bar-wrap">
+                <div class="goal-bar" id="goalBarHome">0%</div>
+              </div>
+              <div class="notice-box" id="homeBmiSummary">BMI 정보가 아직 없습니다.</div>
+            </div>
+            <div class="card">
+              <h3>오늘 기록 요약</h3>
+              <div id="homeSummary" class="summary-box">아직 저장된 기록이 없습니다.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-profile">
+          <h2>회원정보 설정</h2>
+          <p class="sub">아이디, 비밀번호, 나이, 키, 몸무게 등을 수정할 수 있습니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>기본 정보 수정</h3>
+              <label>아이디</label>
+              <input type="text" id="profileId" />
+              <label>비밀번호</label>
+              <input type="password" id="profilePw" />
+              <label>이름/닉네임</label>
+              <input type="text" id="profileName" />
+              <label>나이</label>
+              <input type="number" id="profileAge" />
+              <label>성별</label>
+              <select id="profileGender">
+                <option value="">선택</option>
+                <option value="male">남자</option>
+                <option value="female">여자</option>
+              </select>
+              <button class="save-btn" onclick="saveBasicProfile()">기본 정보 저장</button>
+              <div class="status" id="profileBasicStatus"></div>
+            </div>
+            <div class="card">
+              <h3>건강 정보 수정</h3>
+              <label>키(cm)</label>
+              <input type="number" id="profileHeight" />
+              <label>현재 몸무게(kg)</label>
+              <input type="number" id="profileWeight" />
+              <label>목표 몸무게(kg)</label>
+              <input type="number" id="profileGoalWeight" />
+              <label>기상 목표 시간</label>
+              <input type="time" id="profileWakeTarget" />
+              <label>수면 목표 시간</label>
+              <input type="time" id="profileSleepTarget" />
+              <button class="save-btn" onclick="saveHealthProfile()">건강 정보 저장</button>
+              <div class="status" id="profileHealthStatus"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-diet">
+          <h2>균형 식단</h2>
+          <p class="sub">오늘의 식단과 직접 식단 메모를 각각 관리합니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>오늘의 식단 추천</h3>
+              <div class="diet-box">
+                <strong>아침</strong> : 우유 또는 두유, 바나나, 삶은 달걀, 통밀빵<br>
+                <strong>점심</strong> : 밥 + 단백질 반찬 + 채소 반찬 골고루 + 과일 조금<br>
+                <strong>저녁</strong> : 닭가슴살/두부 + 현미밥 + 샐러드 + 따뜻한 국<br>
+                <strong>간식</strong> : 견과류, 요거트, 고구마 추천
+              </div>
+              <div class="mini-note">식단 추천은 하루 균형을 고려한 예시입니다.</div>
+            </div>
+            <div class="card">
+              <h3>나만의 식단 메모</h3>
+              <label>오늘 먹은 식단 기록</label>
+              <textarea id="dietMemo" placeholder="아침/점심/저녁/간식 기록"></textarea>
+              <button class="save-btn" onclick="saveDietMemo()">식단 메모 저장</button>
+              <div class="status" id="dietStatus"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-goal">
+          <h2>BMI / 비만도 체크</h2>
+          <p class="sub">키와 몸무게를 바탕으로 BMI와 비만도를 참고용으로 확인할 수 있습니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>목표 몸무게 진행률</h3>
+              <div id="goalMainText">회원정보를 먼저 입력해주세요.</div>
+              <div class="goal-bar-wrap">
+                <div class="goal-bar" id="goalBarMain">0%</div>
+              </div>
+              <label>새 몸무게(kg)</label>
+              <input type="number" id="quickWeightInput" placeholder="예: 50.5" />
+              <button class="save-btn" onclick="updateCurrentWeight()">현재 몸무게 업데이트</button>
+              <div class="status" id="quickWeightStatus"></div>
+            </div>
+            <div class="card">
+              <h3>BMI / 복부비만 판정</h3>
+              <div class="summary-box" id="bmiResultBox">회원정보를 입력하면 BMI를 계산합니다.</div>
+              <div class="notice-box">
+                BMI 25 이상이면 비만 기준으로 보고, 25.0~29.9는 1단계 비만, 30.0~34.9는 2단계 비만,
+                35.0 이상은 3단계 비만으로 표시합니다.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-calendarWeight">
+          <h2>몸무게 캘린더 기록</h2>
+          <p class="sub">날짜별 몸무게 기록을 저장해 캘린더처럼 관리합니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>몸무게 기록 추가</h3>
+              <label>날짜</label>
+              <input type="date" id="weightDate" />
+              <label>몸무게(kg)</label>
+              <input type="number" id="weightValue" />
+              <button class="save-btn" onclick="addWeightEntry()">기록 저장</button>
+              <div class="status" id="weightEntryStatus"></div>
+            </div>
+            <div class="card">
+              <h3>저장된 기록</h3>
+              <div class="weight-history" id="weightHistory"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-exercise">
+          <h2>운동 링크</h2>
+          <p class="sub">영상이 바로 재생되지 않는 문제 때문에, 각 운동은 클릭하면 새 탭에서 열리는 링크 방식으로 바꿨습니다.</p>
+          <div class="video-grid">
+            <div class="video-card">
+              <strong>새천년체조</strong>
+              <div class="mini-note">직접 찍은 영상으로 바꾸려면 아래 링크 주소만 교체하면 됩니다.</div>
+              <div class="video-frame"><a class="link-btn" href="https://www.youtube.com/watch?v=9ZkYp0mT8qY" target="_blank">새천년체조 링크 열기</a></div>
+            </div>
+            <div class="video-card">
+              <strong>하체 운동</strong>
+              <div class="video-frame"><a class="link-btn" href="https://www.youtube.com/watch?v=UItWltVZZmE" target="_blank">하체 운동 링크 열기</a></div>
+            </div>
+            <div class="video-card">
+              <strong>상체 운동</strong>
+              <div class="video-frame"><a class="link-btn" href="https://www.youtube.com/watch?v=qEwKCR5JCog" target="_blank">상체 운동 링크 열기</a></div>
+            </div>
+            <div class="video-card">
+              <strong>코어 운동</strong>
+              <div class="video-frame"><a class="link-btn" href="https://www.youtube.com/watch?v=AnYl6Nk9GOA" target="_blank">코어 운동 링크 열기</a></div>
+            </div>
+            <div class="video-card">
+              <strong>필라테스</strong>
+              <div class="video-frame"><a class="link-btn" href="https://www.youtube.com/watch?v=lCg_gh_fppI" target="_blank">필라테스 링크 열기</a></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-checklist">
+          <h2>오늘의 운동 체크리스트</h2>
+          <p class="sub">기본 항목인 물 한 컵 마시기, 운동 30분 하기는 항상 포함되고, 원하는 체크리스트도 추가할 수 있습니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>오늘의 기본 체크</h3>
+              <div class="checklist-items" id="defaultChecklist"></div>
+              <button class="save-btn" onclick="saveChecklistState()">체크 상태 저장</button>
+              <div class="status" id="checklistStatus"></div>
+            </div>
+            <div class="card">
+              <h3>직접 항목 추가</h3>
+              <label>새 체크리스트 항목</label>
+              <input type="text" id="customChecklistInput" placeholder="예: 스트레칭 10분 하기" />
+              <button class="save-btn" onclick="addCustomChecklist()">항목 추가</button>
+              <div class="checklist-items" id="customChecklist"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-mood">
+          <h2>하루 행복도 기록</h2>
+          <p class="sub">하루 끝에 행복 수치와 이모티콘을 기록하고, 날짜별로 저장할 수 있습니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>오늘 행복도 입력</h3>
+              <label>날짜</label>
+              <input type="date" id="moodDate" />
+              <label>행복 점수 (1~10)</label>
+              <input type="number" id="moodScore" min="1" max="10" placeholder="예: 8" />
+              <label>오늘의 기분 이모티콘</label>
+              <div class="mood-options" id="moodOptions">
+                <button class="mood-option" type="button" onclick="selectMood('😄', this)">😄</button>
+                <button class="mood-option" type="button" onclick="selectMood('😊', this)">😊</button>
+                <button class="mood-option" type="button" onclick="selectMood('😐', this)">😐</button>
+                <button class="mood-option" type="button" onclick="selectMood('😢', this)">😢</button>
+                <button class="mood-option" type="button" onclick="selectMood('😴', this)">😴</button>
+              </div>
+              <label>메모</label>
+              <textarea id="moodMemo" placeholder="오늘의 기분 이유"></textarea>
+              <button class="save-btn" onclick="saveMoodEntry()">행복도 저장</button>
+              <div class="status" id="moodStatus"></div>
+            </div>
+            <div class="card">
+              <h3>행복도 기록 목록</h3>
+              <div class="mood-history" id="moodHistory"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-sleep">
+          <h2>수면시간 / 기상시간 기록</h2>
+          <p class="sub">어제의 수면시간과 오늘의 기상시간을 저장해서 생활 리듬을 볼 수 있습니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>수면 기록 입력</h3>
+              <label>기록 날짜</label>
+              <input type="date" id="sleepDate" />
+              <div class="row">
+                <div>
+                  <label>어제 잠든 시간</label>
+                  <input type="time" id="sleepTime" />
+                </div>
+                <div>
+                  <label>오늘 기상 시간</label>
+                  <input type="time" id="wakeTime" />
+                </div>
+              </div>
+              <button class="save-btn" onclick="saveSleepEntry()">수면 기록 저장</button>
+              <div class="status" id="sleepStatus"></div>
+            </div>
+            <div class="card">
+              <h3>저장된 수면 기록</h3>
+              <div class="calendar-list" id="sleepHistory"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-positiveAlarm">
+          <h2>긍정적인 멘트 알림</h2>
+          <p class="sub">원하는 시간을 설정하고 알림을 켜거나 끌 수 있습니다. 브라우저 알림은 페이지가 열려 있을 때 가장 잘 작동합니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>알림 설정</h3>
+              <label>알림 시간</label>
+              <input type="time" id="positiveAlarmTime" />
+              <button class="save-btn" onclick="savePositiveAlarm()">긍정 멘트 알림 저장</button>
+              <button class="save-btn" style="background:#ffe0e0; margin-left:8px;" onclick="togglePositiveAlarm(false)">알림 끄기</button>
+              <button class="save-btn" style="background:#fff6cc; margin-left:8px;" onclick="requestNotificationPermission('positiveAlarmStatus')">알림 허용하기</button>
+              <div class="status" id="positiveAlarmStatus"></div>
+            </div>
+            <div class="card">
+              <h3>오늘의 긍정 멘트</h3>
+              <div class="summary-box" id="positiveMessageBox">나는 오늘도 충분히 잘하고 있다.</div>
+              <button class="save-btn" onclick="changePositiveMessage()">멘트 바꾸기</button>
+              <div class="mini-note">문장 100개를 넣어 반복이 덜하게 바꿔두었습니다.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-medicineAlarm">
+          <h2>약 복용 알림</h2>
+          <p class="sub">복용할 약 이름과 시간을 저장하고 알림을 켜거나 끌 수 있습니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>약 알림 설정</h3>
+              <label>약 이름</label>
+              <input type="text" id="medicineName" placeholder="예: 비타민, 영양제" />
+              <label>복용 시간</label>
+              <input type="time" id="medicineAlarmTime" />
+              <button class="save-btn" onclick="saveMedicineAlarm()">약 알림 저장</button>
+              <button class="save-btn" style="background:#ffe0e0; margin-left:8px;" onclick="toggleMedicineAlarm(false)">알림 끄기</button>
+              <button class="save-btn" style="background:#fff6cc; margin-left:8px;" onclick="requestNotificationPermission('medicineAlarmStatus')">알림 허용하기</button>
+              <div class="status" id="medicineAlarmStatus"></div>
+            </div>
+            <div class="card">
+              <h3>현재 알림 상태</h3>
+              <div class="summary-box" id="medicineAlarmBox">아직 설정된 약 복용 알림이 없습니다.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-waterAlarm">
+          <h2>물 마시기 알림</h2>
+          <p class="sub">몇 분 주기로 알림이 울릴지 직접 설정할 수 있습니다.</p>
+          <div class="card-grid">
+            <div class="card">
+              <h3>주기 설정</h3>
+              <label>몇 분마다 알릴지</label>
+              <input type="number" id="waterInterval" placeholder="예: 60" />
+              <div class="row">
+                <div>
+                  <label>시작 시간</label>
+                  <input type="time" id="waterStartTime" />
+                </div>
+                <div>
+                  <label>종료 시간</label>
+                  <input type="time" id="waterEndTime" />
+                </div>
+              </div>
+              <button class="save-btn" onclick="saveWaterReminder()">물 알림 저장</button>
+              <button class="save-btn" style="background:#ffe0e0; margin-left:8px;" onclick="toggleWaterReminder(false)">알림 끄기</button>
+              <button class="save-btn" style="background:#fff6cc; margin-left:8px;" onclick="requestNotificationPermission('waterAlarmStatus')">알림 허용하기</button>
+              <div class="status" id="waterAlarmStatus"></div>
+            </div>
+            <div class="card">
+              <h3>현재 설정</h3>
+              <div class="summary-box" id="waterAlarmBox">아직 설정된 물 마시기 알림이 없습니다.</div>
+              <div class="notice-box">예: 60분으로 설정하면 시작 시간부터 종료 시간까지 1시간마다 알림이 울립니다.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-breathing">
+          <h2>호흡법 / 명상 링크</h2>
+          <p class="sub">영상 대신 링크 방식으로 바꿨습니다. 누르면 새 탭에서 열립니다.</p>
+          <div class="video-grid">
+            <div class="video-card">
+              <strong>478 호흡법</strong>
+              <div class="mini-note">4초 들이마시기 → 7초 멈추기 → 8초 내쉬기</div>
+              <div class="video-frame"><a class="link-btn" href="https://www.youtube.com/watch?v=YRPh_GaiL8s" target="_blank">478 호흡법 링크 열기</a></div>
+            </div>
+            <div class="video-card">
+              <strong>명상 영상</strong>
+              <div class="video-frame"><a class="link-btn" href="https://www.youtube.com/watch?v=inpok4MKVLM" target="_blank">명상 영상 링크 열기</a></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="footer-note">이 파일은 HTML 하나만으로 실행되는 버전입니다. 데이터는 브라우저 localStorage에 저장됩니다. 알림은 브라우저가 열려 있을 때 가장 안정적으로 작동합니다.</div>
+  </div>
+
+  <script>
+    const APP_IMAGE = './GLP.png';
+    const STORAGE_KEY = 'happy_life_health_app_v2';
+
+    const defaultAppData = {
+      registered: false,
+      profile: {
+        userId: '',
+        password: '',
+        name: '',
+        age: '',
+        gender: '',
+        height: '',
+        weight: '',
+        goalWeight: '',        wakeTarget: '',
+        sleepTarget: ''
+      },
+      dietMemo: '',
+      weightEntries: [],
+      checklistDefaults: [
+        { text: '물 한 컵 마시기', checked: false },
+        { text: '운동 30분 하기', checked: false }
+      ],
+      checklistCustom: [],
+      moodEntries: [],
+      selectedMood: '',
+      sleepEntries: [],
+      positiveAlarm: { time: '', enabled: false, lastNotified: '' },
+      medicineAlarm: { name: '', time: '', enabled: false, lastNotified: '' },
+      waterReminder: { interval: '', startTime: '', endTime: '', enabled: false, lastNotified: '' },
+      messageIndex: 0
+    };
+
+    let appData = JSON.parse(JSON.stringify(defaultAppData));
+    let reminderTimer = null;
+
+    const positiveMessages = [
+      '오늘도 천천히, 하지만 확실하게 나아가고 있다.',
+      '지금의 작은 실천이 내일의 큰 변화가 된다.',
+      '나는 오늘 내 몸을 더 아껴줄 수 있다.',
+      '완벽하지 않아도 꾸준하면 충분하다.',
+      '한 번의 기록이 나를 더 건강하게 만든다.',
+      '오늘의 나는 어제보다 더 나를 잘 돌보고 있다.',
+      '작은 성공도 분명한 성공이다.',
+      '나는 내 속도대로 잘 가고 있다.',
+      '오늘의 물 한 잔이 내 몸을 살린다.',
+      '운동한 몇 분이 내 하루를 바꾼다.',
+      '건강은 급하게가 아니라 꾸준하게 만든다.',
+      '오늘의 선택이 내 몸의 미래를 만든다.',
+      '나는 스스로를 돌볼 힘이 있다.',
+      '한 번 쉬어도 다시 시작하면 된다.',
+      '내 몸은 내가 챙길수록 더 좋아진다.',
+      '비교보다 중요한 건 나의 어제와 오늘이다.',
+      '오늘의 체크 하나가 큰 변화의 시작이다.',
+      '나는 조금씩 더 건강한 습관을 만들고 있다.',
+      '잘하는 날도, 못하는 날도 모두 과정이다.',
+      '오늘도 충분히 잘하고 있다.',
+      '지금 이 한 걸음이 가장 중요하다.',
+      '건강은 거창한 결심보다 반복되는 실천이다.',
+      '내 몸은 내가 보내는 관심을 기억한다.',
+      '포기하지 않고 기록하는 내가 멋지다.',
+      '오늘의 나를 위해 오늘의 선택을 한다.',
+      '조금 늦어도 괜찮다. 멈추지만 않으면 된다.',
+      '나는 나를 지키는 습관을 배우는 중이다.',
+      '몸과 마음은 같이 쉬고 같이 회복된다.',
+      '오늘의 안정이 내일의 자신감이 된다.',
+      '기록은 귀찮은 일이 아니라 나를 보는 일이다.',
+      '나는 나에게 더 다정해질 수 있다.',
+      '물 한 잔, 숨 한 번, 걸음 하나도 의미 있다.',
+      '건강은 벌이 아니라 돌봄이다.',
+      '오늘 조금 부족해도 다시 채우면 된다.',
+      '지금의 노력은 절대 헛되지 않는다.',
+      '작은 습관은 생각보다 큰 힘이 있다.',
+      '나는 내 몸의 신호를 잘 들을 수 있다.',
+      '오늘 숨을 고르고 다시 시작해도 늦지 않다.',
+      '내일을 위해 오늘 나를 소중히 대한다.',
+      '나는 내 하루를 더 좋은 방향으로 바꿀 수 있다.',
+      '하루 한 번의 점검이 나를 단단하게 만든다.',
+      '몸이 보내는 신호를 알아차리는 것도 실력이다.',
+      '꾸준함은 눈에 안 보여도 쌓이고 있다.',
+      '건강한 선택은 결국 나를 편하게 만든다.',
+      '내 몸은 적이 아니라 함께 가는 팀이다.',
+      '나는 오늘도 회복하고 성장하고 있다.',
+      '완성보다 중요한 건 계속하는 힘이다.',
+      '오늘의 나는 생각보다 더 잘 버티고 있다.',
+      '지치면 쉬고, 괜찮아지면 다시 가면 된다.',
+      '나를 챙기는 시간은 절대 아깝지 않다.',
+      '작은 루틴이 큰 안정을 만든다.',
+      '건강은 참는 게 아니라 조절하는 것이다.',
+      '나는 지금 충분히 다시 시작할 수 있다.',
+      '오늘의 식사가 내 몸을 만든다.',
+      '한 번의 산책도 분명한 운동이다.',
+      '나를 아끼는 방식은 생각보다 다양하다.',
+      '오늘의 휴식도 건강 관리의 일부다.',
+      '내 몸을 들여다보는 건 중요한 용기다.',
+      '실수해도 괜찮다. 포기만 안 하면 된다.',
+      '건강은 숫자만이 아니라 상태와 감각도 포함한다.',
+      '오늘은 어제보다 하나만 더 해도 충분하다.',
+      '나는 나를 돌볼 자격이 있다.',
+      '지금의 나도 이미 충분히 가치 있다.',
+      '건강한 습관은 천천히 오래 간다.',
+      '내가 나를 챙길수록 하루가 달라진다.',
+      '오늘의 선택이 쌓여 내 생활이 된다.',
+      '한 번의 기록은 한 번의 관심이다.',
+      '내 몸을 이해하는 일이 가장 먼저다.',
+      '움직인 만큼 몸은 분명히 반응한다.',
+      '천천히 가도 방향이 맞으면 괜찮다.',
+      '나는 지금도 충분히 변화하고 있다.',
+      '몸도 마음도 매일 조금씩 회복될 수 있다.',
+      '지금 물 마시는 것도 아주 좋은 선택이다.',
+      '한 번 더 움직이는 내가 대단하다.',
+      '건강은 남을 위한 게 아니라 나를 위한 것이다.',
+      '오늘 나를 챙긴 시간은 내일의 여유가 된다.',
+      '나는 내 생활을 더 안정적으로 만들 수 있다.',
+      '조절하는 힘은 이미 내 안에 있다.',
+      '오늘의 숨 고르기가 내 마음을 정리해 준다.',
+      '하루를 돌아보는 습관이 나를 성장시킨다.',
+      '기록하는 나는 이미 변화를 시작한 사람이다.',
+      '오늘 하루도 충분히 의미 있다.',
+      '한 가지라도 해냈다면 그걸로 진전이다.',
+      '나는 내 몸에 더 좋은 선택을 배워가고 있다.',
+      '내 리듬을 찾는 과정도 건강 관리다.',
+      '지금의 꾸준함은 미래의 편안함이 된다.',
+      '오늘도 몸과 마음을 같이 돌본다.',
+      '식사, 수면, 움직임은 모두 연결되어 있다.',
+      '몸을 탓하지 말고 신호를 읽어보자.',
+      '오늘의 한 걸음이 생각보다 멀리 간다.',
+      '나는 나를 바꿀 수 있는 사람이다.',
+      '건강한 하루는 거창하지 않아도 된다.',
+      '조금 덜 해도 괜찮다. 아예 안 하는 것보다 낫다.',
+      '오늘도 다시 선택할 기회가 있다.',
+      '나를 챙기는 건 이기적인 일이 아니라 필요한 일이다.',
+      '내 몸은 천천히라도 분명히 좋아질 수 있다.',
+      '하루를 정리하는 기록은 나를 이해하게 한다.',
+      '나는 오늘도 나를 위해 움직인다.',
+      '내가 내 편이 되어주는 하루를 만들자.',
+      '건강은 결과가 아니라 쌓이는 과정이다.',
+      '오늘도 충분히 시작할 수 있다.',
+      '나를 아끼는 선택은 언제나 가치 있다.'
+    ];
+
+    function applyAppImages() {}
+
+    function mergeData(saved) {
+      return {
+        ...defaultAppData,
+        ...saved,
+        profile: { ...defaultAppData.profile, ...(saved.profile || {}) },
+        positiveAlarm: { ...defaultAppData.positiveAlarm, ...(saved.positiveAlarm || {}) },
+        medicineAlarm: { ...defaultAppData.medicineAlarm, ...(saved.medicineAlarm || {}) },
+        waterReminder: { ...defaultAppData.waterReminder, ...(saved.waterReminder || {}) },
+        checklistDefaults: Array.isArray(saved.checklistDefaults) && saved.checklistDefaults.length ? saved.checklistDefaults : defaultAppData.checklistDefaults,
+        checklistCustom: Array.isArray(saved.checklistCustom) ? saved.checklistCustom : [],
+        weightEntries: Array.isArray(saved.weightEntries) ? saved.weightEntries : [],
+        moodEntries: Array.isArray(saved.moodEntries) ? saved.moodEntries : [],
+        sleepEntries: Array.isArray(saved.sleepEntries) ? saved.sleepEntries : []
+      };
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+    }
+
+    function loadData() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          appData = mergeData(JSON.parse(saved));
+        } catch (e) {
+          console.error('저장 데이터 불러오기 실패', e);
+          appData = JSON.parse(JSON.stringify(defaultAppData));
+        }
+      }
+    }
+
+    function setTodayDefaults() {
+      const today = new Date().toISOString().split('T')[0];
+      ['weightDate', 'moodDate', 'sleepDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !el.value) el.value = today;
+      });
+    }
+
+    function registerUser() {
+      const profile = {
+        userId: document.getElementById('signupId').value.trim(),
+        password: document.getElementById('signupPw').value.trim(),
+        name: document.getElementById('signupName').value.trim(),
+        age: document.getElementById('signupAge').value.trim(),
+        gender: document.getElementById('signupGender').value,
+        height: document.getElementById('signupHeight').value.trim(),
+        weight: document.getElementById('signupWeight').value.trim(),
+        goalWeight: document.getElementById('signupGoalWeight').value.trim(),
+        wakeTarget: document.getElementById('signupWakeTarget').value,
+        sleepTarget: document.getElementById('signupSleepTarget').value
+      };
+      const status = document.getElementById('signupStatus');
+
+      if (!profile.userId || !profile.password || !profile.name || !profile.age || !profile.gender || !profile.height || !profile.weight || !profile.goalWeight) {
+        setStatus('signupStatus', '필수 정보를 모두 입력해야 시작할 수 있어요.', false);
+        return;
+      }
+
+      appData.registered = true;
+      appData.profile = profile;
+      saveData();
+      setStatus('signupStatus', '회원정보가 저장되었습니다.');
+      renderAll();
+      document.getElementById('signupGate').classList.add('hidden');
+      showPage('home');
+    }
+
+    function showPage(pageName) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      const target = document.getElementById('page-' + pageName);
+      if (target) target.classList.add('active');
+      document.querySelectorAll('.quick-menu button').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.querySelector('.quick-menu button[data-page="' + pageName + '"]');
+      if (activeBtn) activeBtn.classList.add('active');
+      const dashboard = document.querySelector('.dashboard');
+      if (dashboard) dashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function fillProfileInputs() {
+      document.getElementById('profileId').value = appData.profile.userId || '';
+      document.getElementById('profilePw').value = appData.profile.password || '';
+      document.getElementById('profileName').value = appData.profile.name || '';
+      document.getElementById('profileAge').value = appData.profile.age || '';
+      document.getElementById('profileGender').value = appData.profile.gender || '';
+      document.getElementById('profileHeight').value = appData.profile.height || '';
+      document.getElementById('profileWeight').value = appData.profile.weight || '';
+      document.getElementById('profileGoalWeight').value = appData.profile.goalWeight || '';
+      document.getElementById('profileWakeTarget').value = appData.profile.wakeTarget || '';
+      document.getElementById('profileSleepTarget').value = appData.profile.sleepTarget || '';
+      document.getElementById('dietMemo').value = appData.dietMemo || '';
+      document.getElementById('positiveAlarmTime').value = appData.positiveAlarm.time || '';
+      document.getElementById('medicineName').value = appData.medicineAlarm.name || '';
+      document.getElementById('medicineAlarmTime').value = appData.medicineAlarm.time || '';
+      document.getElementById('waterInterval').value = appData.waterReminder.interval || '';
+      document.getElementById('waterStartTime').value = appData.waterReminder.startTime || '';
+      document.getElementById('waterEndTime').value = appData.waterReminder.endTime || '';
+      updateMessageBoxes();
+    }
+
+    function renderSideProfile() {
+      document.getElementById('sideUserName').textContent = appData.profile.name || '사용자';
+      document.getElementById('sideUserId').textContent = appData.profile.userId || '-';
+      document.getElementById('sideUserAge').textContent = appData.profile.age ? appData.profile.age + '세' : '-';
+      document.getElementById('sideUserHeight').textContent = appData.profile.height ? appData.profile.height + 'cm' : '-';
+      document.getElementById('sideUserWeight').textContent = appData.profile.weight ? appData.profile.weight + 'kg' : '-';
+    }
+
+    function saveBasicProfile() {
+      appData.profile.userId = document.getElementById('profileId').value.trim();
+      appData.profile.password = document.getElementById('profilePw').value.trim();
+      appData.profile.name = document.getElementById('profileName').value.trim();
+      appData.profile.age = document.getElementById('profileAge').value.trim();
+      appData.profile.gender = document.getElementById('profileGender').value;
+      saveData();
+      renderAll();
+      setStatus('profileBasicStatus', '기본 정보가 저장되었습니다.');
+    }
+
+    function saveHealthProfile() {
+      appData.profile.height = document.getElementById('profileHeight').value.trim();
+      appData.profile.weight = document.getElementById('profileWeight').value.trim();
+      appData.profile.goalWeight = document.getElementById('profileGoalWeight').value.trim();
+      appData.profile.wakeTarget = document.getElementById('profileWakeTarget').value;
+      appData.profile.sleepTarget = document.getElementById('profileSleepTarget').value;
+      saveData();
+      renderAll();
+      setStatus('profileHealthStatus', '건강 정보가 저장되었습니다.');
+    }
+
+    function saveDietMemo() {
+      appData.dietMemo = document.getElementById('dietMemo').value.trim();
+      saveData();
+      setStatus('dietStatus', '식단 메모가 저장되었습니다.');
+      renderHomeSummary();
+    }
+
+    function calculateGoalProgress() {
+      const current = parseFloat(appData.profile.weight);
+      const goal = parseFloat(appData.profile.goalWeight);
+      if (isNaN(current) || isNaN(goal)) return { percent: 0, text: '회원정보를 먼저 입력해주세요.' };
+      const difference = Math.abs(current - goal);
+      let percent = Math.max(0, 100 - Math.round(difference * 10));
+      if (difference === 0) percent = 100;
+      const text = '현재 ' + current + 'kg / 목표 ' + goal + 'kg · 목표와의 차이 ' + difference.toFixed(1) + 'kg';
+      return { percent, text };
+    }
+
+    function calculateBmiStatus() {
+      const heightCm = parseFloat(appData.profile.height);
+      const weight = parseFloat(appData.profile.weight);
+
+      if (isNaN(heightCm) || isNaN(weight)) {
+        return { ok: false, summary: '키와 몸무게를 입력하면 BMI를 계산할 수 있어요.', detail: '회원정보에서 키와 몸무게를 입력해주세요.' };
+      }
+
+      const heightM = heightCm / 100;
+      const bmi = weight / (heightM * heightM);
+      let category = '비만 기준 미만';
+      if (bmi >= 35) category = '3단계 비만(고도 비만)';
+      else if (bmi >= 30) category = '2단계 비만';
+      else if (bmi >= 25) category = '1단계 비만';
+
+      return {
+        ok: true,
+        bmi: bmi,
+        summary: 'BMI ' + bmi.toFixed(1) + ' · ' + category,
+        detail: 'BMI: ' + bmi.toFixed(1) + ' / 판정: ' + category
+      };
+    }
+
+    function renderGoal() {
+      const result = calculateGoalProgress();
+      document.getElementById('goalMainText').textContent = result.text;
+      document.getElementById('goalSummaryText').textContent = result.text;
+      ['goalBarMain', 'goalBarHome'].forEach(id => {
+        const bar = document.getElementById(id);
+        if (bar) {
+          bar.style.width = result.percent + '%';
+          bar.textContent = result.percent + '%';
+        }
+      });
+
+      const bmiStatus = calculateBmiStatus();
+      document.getElementById('bmiResultBox').innerHTML = bmiStatus.ok
+        ? '<span class="pill">' + bmiStatus.summary + '</span><div style="margin-top:12px;">' + bmiStatus.detail + '</div>'
+        : bmiStatus.detail;
+      document.getElementById('homeBmiSummary').textContent = bmiStatus.detail;
+    }
+
+    function updateCurrentWeight() {
+      const value = document.getElementById('quickWeightInput').value.trim();
+      if (!value) {
+        setStatus('quickWeightStatus', '몸무게를 입력해주세요.', false);
+        return;
+      }
+      appData.profile.weight = value;
+      document.getElementById('profileWeight').value = value;
+      saveData();
+      renderAll();
+      setStatus('quickWeightStatus', '현재 몸무게가 업데이트되었습니다.');
+    }
+
+    function addWeightEntry() {
+      const date = document.getElementById('weightDate').value;
+      const weight = document.getElementById('weightValue').value.trim();
+      if (!date || !weight) {
+        setStatus('weightEntryStatus', '날짜와 몸무게를 모두 입력해주세요.', false);
+        return;
+      }
+      appData.weightEntries.unshift({ date: date, weight: weight });
+      saveData();
+      renderWeightHistory();
+      renderHomeSummary();
+      setStatus('weightEntryStatus', '몸무게 기록이 저장되었습니다.');
+      document.getElementById('weightValue').value = '';
+    }
+
+    function renderWeightHistory() {
+      const box = document.getElementById('weightHistory');
+      box.innerHTML = '';
+      if (!appData.weightEntries.length) {
+        box.innerHTML = '<div class="mini-note">아직 저장된 몸무게 기록이 없습니다.</div>';
+        return;
+      }
+      appData.weightEntries.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = 'entry-item';
+        div.innerHTML = '<strong>' + entry.date + '</strong><span>' + entry.weight + 'kg</span>';
+        box.appendChild(div);
+      });
+    }
+
+    function renderChecklist() {
+      const defaultBox = document.getElementById('defaultChecklist');
+      const customBox = document.getElementById('customChecklist');
+      defaultBox.innerHTML = '';
+      customBox.innerHTML = '';
+
+      appData.checklistDefaults.forEach((item, index) => {
+        const div = document.createElement('label');
+        div.className = 'check-item';
+        div.innerHTML = '<input type="checkbox" ' + (item.checked ? 'checked' : '') + ' onchange="toggleChecklistDefault(' + index + ', this.checked)"><span>' + item.text + '</span>';
+        defaultBox.appendChild(div);
+      });
+
+      if (!appData.checklistCustom.length) {
+        customBox.innerHTML = '<div class="mini-note">직접 추가한 항목이 아직 없습니다.</div>';
+      } else {
+        appData.checklistCustom.forEach((item, index) => {
+          const div = document.createElement('label');
+          div.className = 'check-item';
+          div.innerHTML = '<input type="checkbox" ' + (item.checked ? 'checked' : '') + ' onchange="toggleChecklistCustom(' + index + ', this.checked)"><span>' + item.text + '</span>';
+          customBox.appendChild(div);
+        });
+      }
+    }
+
+    function toggleChecklistDefault(index, checked) { appData.checklistDefaults[index].checked = checked; }
+    function toggleChecklistCustom(index, checked) { appData.checklistCustom[index].checked = checked; }
+
+    function addCustomChecklist() {
+      const text = document.getElementById('customChecklistInput').value.trim();
+      if (!text) return;
+      appData.checklistCustom.push({ text: text, checked: false });
+      document.getElementById('customChecklistInput').value = '';
+      saveData();
+      renderChecklist();
+    }
+
+    function saveChecklistState() {
+      saveData();
+      setStatus('checklistStatus', '체크리스트 상태가 저장되었습니다.');
+      renderHomeSummary();
+    }
+
+    function selectMood(emoji, button) {
+      appData.selectedMood = emoji;
+      document.querySelectorAll('.mood-option').forEach(btn => btn.classList.remove('selected'));
+      button.classList.add('selected');
+    }
+
+    function saveMoodEntry() {
+      const date = document.getElementById('moodDate').value;
+      const score = document.getElementById('moodScore').value.trim();
+      const memo = document.getElementById('moodMemo').value.trim();
+      if (!date || !score || !appData.selectedMood) {
+        setStatus('moodStatus', '날짜, 점수, 이모티콘을 모두 입력해주세요.', false);
+        return;
+      }
+      appData.moodEntries.unshift({ date: date, score: score, emoji: appData.selectedMood, memo: memo });
+      saveData();
+      renderMoodHistory();
+      renderHomeSummary();
+      setStatus('moodStatus', '행복도 기록이 저장되었습니다.');
+      document.getElementById('moodScore').value = '';
+      document.getElementById('moodMemo').value = '';
+    }
+
+    function renderMoodHistory() {
+      const box = document.getElementById('moodHistory');
+      box.innerHTML = '';
+      if (!appData.moodEntries.length) {
+        box.innerHTML = '<div class="mini-note">아직 저장된 행복도 기록이 없습니다.</div>';
+        return;
+      }
+      appData.moodEntries.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = 'entry-item';
+        div.innerHTML = '<strong>' + entry.date + '</strong><span>' + entry.emoji + ' ' + entry.score + '/10' + (entry.memo ? ' · ' + entry.memo : '') + '</span>';
+        box.appendChild(div);
+      });
+    }
+
+    function saveSleepEntry() {
+      const date = document.getElementById('sleepDate').value;
+      const sleepTime = document.getElementById('sleepTime').value;
+      const wakeTime = document.getElementById('wakeTime').value;
+      if (!date || !sleepTime || !wakeTime) {
+        setStatus('sleepStatus', '날짜와 수면/기상 시간을 모두 입력해주세요.', false);
+        return;
+      }
+      appData.sleepEntries.unshift({ date: date, sleepTime: sleepTime, wakeTime: wakeTime });
+      saveData();
+      renderSleepHistory();
+      renderHomeSummary();
+      setStatus('sleepStatus', '수면 기록이 저장되었습니다.');
+    }
+
+    function renderSleepHistory() {
+      const box = document.getElementById('sleepHistory');
+      box.innerHTML = '';
+      if (!appData.sleepEntries.length) {
+        box.innerHTML = '<div class="mini-note">아직 저장된 수면 기록이 없습니다.</div>';
+        return;
+      }
+      appData.sleepEntries.forEach(entry => {
+        const div = document.createElement('div');
+        div.className = 'entry-item';
+        div.innerHTML = '<strong>' + entry.date + '</strong><span>잠든 시간 ' + entry.sleepTime + ' · 기상 ' + entry.wakeTime + '</span>';
+        box.appendChild(div);
+      });
+    }
+
+    async function requestNotificationPermission(statusId) {
+      if (!('Notification' in window)) {
+        setStatus(statusId || 'globalStatus', '이 브라우저는 알림 기능을 지원하지 않아요.', false);
+        return false;
+      }
+      if (Notification.permission === 'granted') {
+        setStatus(statusId || 'globalStatus', '이미 알림이 허용되어 있어요.');
+        return true;
+      }
+      if (Notification.permission === 'denied') {
+        setStatus(statusId || 'globalStatus', '브라우저 설정에서 알림 차단을 해제해야 해요.', false);
+        return false;
+      }
+      const permission = await Notification.requestPermission();
+      if (permission === 'granted') {
+        setStatus(statusId || 'globalStatus', '알림 허용이 완료되었습니다.');
+        return true;
+      }
+      setStatus(statusId || 'globalStatus', '알림 허용이 거부되었어요.', false);
+      return false;
+    }
+
+    function updateMessageBoxes() {
+      const msg = positiveMessages[appData.messageIndex % positiveMessages.length];
+      const todayMessage = document.getElementById('todayMessage');
+      const positiveMessageBox = document.getElementById('positiveMessageBox');
+      if (todayMessage) todayMessage.textContent = msg;
+      if (positiveMessageBox) positiveMessageBox.textContent = msg;
+    }
+
+    function changePositiveMessage() {
+      appData.messageIndex = (appData.messageIndex + 1) % positiveMessages.length;
+      saveData();
+      updateMessageBoxes();
+    }
+
+    async function savePositiveAlarm() {
+      const time = document.getElementById('positiveAlarmTime').value;
+      if (!time) {
+        setStatus('positiveAlarmStatus', '알림 시간을 설정해주세요.', false);
+        return;
+      }
+      const allowed = await requestNotificationPermission('positiveAlarmStatus');
+      if (!allowed) return;
+      appData.positiveAlarm.time = time;
+      appData.positiveAlarm.enabled = true;
+      saveData();
+      setStatus('positiveAlarmStatus', '긍정 멘트 알림이 ' + time + '에 설정되었습니다.');
+      renderHomeSummary();
+      startReminderLoop();
+    }
+
+    function togglePositiveAlarm(enabled) {
+      appData.positiveAlarm.enabled = enabled;
+      saveData();
+      setStatus('positiveAlarmStatus', enabled ? '긍정 알림이 켜졌습니다.' : '긍정 알림이 꺼졌습니다.', enabled);
+      renderHomeSummary();
+    }
+
+    async function saveMedicineAlarm() {
+      const name = document.getElementById('medicineName').value.trim();
+      const time = document.getElementById('medicineAlarmTime').value;
+      if (!name || !time) {
+        setStatus('medicineAlarmStatus', '약 이름과 시간을 모두 입력해주세요.', false);
+        return;
+      }
+      const allowed = await requestNotificationPermission('medicineAlarmStatus');
+      if (!allowed) return;
+      appData.medicineAlarm = { name: name, time: time, enabled: true, lastNotified: appData.medicineAlarm.lastNotified || '' };
+      saveData();
+      setStatus('medicineAlarmStatus', '약 복용 알림이 저장되었습니다.');
+      renderHomeSummary();
+      startReminderLoop();
+    }
+
+    function toggleMedicineAlarm(enabled) {
+      appData.medicineAlarm.enabled = enabled;
+      saveData();
+      if (!enabled) document.getElementById('medicineAlarmBox').textContent = '약 복용 알림이 꺼져 있습니다.';
+      setStatus('medicineAlarmStatus', enabled ? '약 복용 알림이 켜졌습니다.' : '약 복용 알림이 꺼졌습니다.', enabled);
+      renderHomeSummary();
+    }
+
+    async function saveWaterReminder() {
+      const interval = document.getElementById('waterInterval').value.trim();
+      const startTime = document.getElementById('waterStartTime').value;
+      const endTime = document.getElementById('waterEndTime').value;
+      if (!interval || !startTime || !endTime) {
+        setStatus('waterAlarmStatus', '주기, 시작 시간, 종료 시간을 모두 입력해주세요.', false);
+        return;
+      }
+      const allowed = await requestNotificationPermission('waterAlarmStatus');
+      if (!allowed) return;
+      appData.waterReminder.interval = interval;
+      appData.waterReminder.startTime = startTime;
+      appData.waterReminder.endTime = endTime;
+      appData.waterReminder.enabled = true;
+      saveData();
+      setStatus('waterAlarmStatus', interval + '분 주기의 물 마시기 알림이 저장되었습니다.');
+      renderWaterReminderBox();
+      renderHomeSummary();
+      startReminderLoop();
+    }
+
+    function toggleWaterReminder(enabled) {
+      appData.waterReminder.enabled = enabled;
+      saveData();
+      renderWaterReminderBox();
+      renderHomeSummary();
+      setStatus('waterAlarmStatus', enabled ? '물 마시기 알림이 켜졌습니다.' : '물 마시기 알림이 꺼졌습니다.', enabled);
+    }
+
+    function renderWaterReminderBox() {
+      const box = document.getElementById('waterAlarmBox');
+      if (!appData.waterReminder.enabled) {
+        box.textContent = appData.waterReminder.interval ? '물 마시기 알림이 꺼져 있습니다.' : '아직 설정된 물 마시기 알림이 없습니다.';
+        return;
+      }
+      box.textContent = appData.waterReminder.startTime + '부터 ' + appData.waterReminder.endTime + '까지 ' + appData.waterReminder.interval + '분마다 물 마시기 알림이 울립니다.';
+    }
+
+    function notifyUser(title, body) {
+      if (!('Notification' in window) || Notification.permission !== 'granted') return;
+      new Notification(title, { body: body, icon: APP_IMAGE });
+    }
+
+    function getNowInfo() {
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const hh = String(now.getHours()).padStart(2, '0');
+      const mi = String(now.getMinutes()).padStart(2, '0');
+      return {
+        dateKey: yyyy + '-' + mm + '-' + dd,
+        timeKey: hh + ':' + mi,
+        minuteKey: yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + mi,
+        minutesNow: now.getHours() * 60 + now.getMinutes()
+      };
+    }
+
+    function timeToMinutes(timeStr) {
+      if (!timeStr || timeStr.indexOf(':') === -1) return null;
+      const parts = timeStr.split(':');
+      return Number(parts[0]) * 60 + Number(parts[1]);
+    }
+
+    function checkReminders() {
+      const nowInfo = getNowInfo();
+      const msg = positiveMessages[appData.messageIndex % positiveMessages.length];
+
+      if (appData.positiveAlarm.enabled && appData.positiveAlarm.time === nowInfo.timeKey && appData.positiveAlarm.lastNotified !== nowInfo.minuteKey) {
+        notifyUser('긍정 멘트 알림', msg);
+        appData.positiveAlarm.lastNotified = nowInfo.minuteKey;
+        saveData();
+      }
+
+      if (appData.medicineAlarm.enabled && appData.medicineAlarm.time === nowInfo.timeKey && appData.medicineAlarm.lastNotified !== nowInfo.minuteKey) {
+        notifyUser('약 복용 알림', appData.medicineAlarm.name + ' 복용할 시간입니다.');
+        appData.medicineAlarm.lastNotified = nowInfo.minuteKey;
+        saveData();
+      }
+
+      if (appData.waterReminder.enabled) {
+        const interval = Number(appData.waterReminder.interval);
+        const start = timeToMinutes(appData.waterReminder.startTime);
+        const end = timeToMinutes(appData.waterReminder.endTime);
+        if (interval > 0 && start !== null && end !== null && nowInfo.minutesNow >= start && nowInfo.minutesNow <= end) {
+          const diff = nowInfo.minutesNow - start;
+          if (diff % interval === 0 && appData.waterReminder.lastNotified !== nowInfo.minuteKey) {
+            notifyUser('물 마시기 알림', '지금 물 한 컵 마실 시간이에요.');
+            appData.waterReminder.lastNotified = nowInfo.minuteKey;
+            saveData();
+          }
+        }
+      }
+    }
+
+    function startReminderLoop() {
+      if (reminderTimer) clearInterval(reminderTimer);
+      checkReminders();
+      reminderTimer = setInterval(checkReminders, 30000);
+    }
+
+    function renderHomeSummary() {
+      const lastWeight = appData.weightEntries[0] ? appData.weightEntries[0].date + ' · ' + appData.weightEntries[0].weight + 'kg' : '없음';
+      const lastMood = appData.moodEntries[0] ? appData.moodEntries[0].date + ' · ' + appData.moodEntries[0].emoji + ' ' + appData.moodEntries[0].score + '/10' : '없음';
+      const lastSleep = appData.sleepEntries[0] ? appData.sleepEntries[0].date + ' · ' + appData.sleepEntries[0].sleepTime + ' ~ ' + appData.sleepEntries[0].wakeTime : '없음';
+      const checklistDone = appData.checklistDefaults.concat(appData.checklistCustom).filter(item => item.checked).length;
+      const checklistTotal = appData.checklistDefaults.concat(appData.checklistCustom).length;
+      const waterState = appData.waterReminder.enabled ? appData.waterReminder.interval + '분 주기' : '꺼짐';
+      const positiveState = appData.positiveAlarm.enabled ? appData.positiveAlarm.time : '꺼짐';
+      const medicineState = appData.medicineAlarm.enabled ? appData.medicineAlarm.name + ' (' + appData.medicineAlarm.time + ')' : '꺼짐';
+
+      document.getElementById('homeSummary').innerHTML =
+        '식단 메모: ' + (appData.dietMemo ? '작성 완료' : '아직 없음') + '<br>' +
+        '최근 몸무게 기록: ' + lastWeight + '<br>' +
+        '최근 행복도 기록: ' + lastMood + '<br>' +
+        '최근 수면 기록: ' + lastSleep + '<br>' +
+        '체크리스트 완료: ' + checklistDone + '/' + checklistTotal + '<br>' +
+        '긍정 알림: ' + positiveState + '<br>' +
+        '약 알림: ' + medicineState + '<br>' +
+        '물 알림: ' + waterState;
+
+      if (appData.medicineAlarm.name && appData.medicineAlarm.time) {
+        document.getElementById('medicineAlarmBox').textContent = appData.medicineAlarm.enabled
+          ? appData.medicineAlarm.name + ' 복용 알림이 ' + appData.medicineAlarm.time + '에 설정되었습니다.'
+          : '약 복용 알림이 꺼져 있습니다.';
+      }
+      renderWaterReminderBox();
+      updateMessageBoxes();
+    }
+
+    function setStatus(id, message, success = true) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = message;
+      el.className = success ? 'status success' : 'status error';
+    }
+
+    function resetAllData() {
+      if (!confirm('저장된 모든 데이터를 초기화할까요?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+
+    function renderAll() {
+      applyAppImages();
+      fillProfileInputs();
+      renderSideProfile();
+      renderGoal();
+      renderWeightHistory();
+      renderChecklist();
+      renderMoodHistory();
+      renderSleepHistory();
+      renderHomeSummary();
+      setTodayDefaults();
+      if (appData.registered) {
+        document.getElementById('signupGate').classList.add('hidden');
+      } else {
+        document.getElementById('signupGate').classList.remove('hidden');
+      }
+    }
+
+    loadData();
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAll();
+      showPage('home');
+      startReminderLoop();
+    });
+  </script>
+</body>
+</html>
